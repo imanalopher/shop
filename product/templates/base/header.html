@@ -1,0 +1,43 @@
+<!--begin header-->
+{% load staticfiles %}
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div id="logo" class="logo">
+                    <a href="{% url 'product.index' %}">
+                        <img src="{% static 'product/images/logo1.png' %}" title="Detali.kg автозапчасти в Бишкеке" alt="Detali.kg автозапчасти в Бишкеке" class="img-responsive"/>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="top-links">
+                    <a href="{% url 'product.index' %}"><i class="material-icons-library_add"></i>Добавить товар</a>
+                    {% if app.user %}
+                        <a href="{% url 'product.index' %}"><i class="material-icons-person"></i>Профиль</a>
+                        <a href="{% url 'product.index' %}"><i class="material-icons-edit"></i>Редактировать профиль</a>
+                        <a href="{% url 'product.index' %}"><i class="material-icons-list"></i>Мои товары</a>
+                        <a href="{% url 'product.index' %}"><i class="material-icons-lock_open"></i>Выход</a>
+                    {% else %}
+                        <a href="{% url 'product.index' %}"><i class="material-icons-person"></i>Регистрация</a>
+                        <a href="{% url 'product.index' %}"><i class="material-icons-person"></i>Вход</a>
+                    {% endif %}
+                </div>
+
+                <div class="clearfix"></div>
+                <div class="float-box">
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-9 col-sm-offset-3">
+                <div id="search" class="search">
+                    <input type="text" name="search" value="" placeholder="Поиск">
+                    <button type="button" class="button-search"><span>Поиск</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- end header -->
