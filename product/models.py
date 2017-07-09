@@ -4,7 +4,17 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+    active = models.BooleanField(default=True)
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='children')
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=11, decimal_places=5)
     description = models.CharField(max_length=4040)
@@ -22,12 +32,3 @@ class Product(models.Model):
 
     def __str__(self):
         return str(self.pk) + ' - ' + self.name + ' - ' + str(self.price)
-
-
-class Category(models.Model):
-    name = models.CharField(max_length=255)
-    active = models.BooleanField(default=True)
-    parent = models.ForeignKey('self', blank=True, null=True, related_name='children')
-
-    def __str__(self):
-        return self.name
