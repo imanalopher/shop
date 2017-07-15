@@ -57,7 +57,7 @@
                     <div class="product-layout product-list col-xs-12">
                         <div class="product-thumb transition options">
                             <div class="image">
-                                <a class="lazy" style="padding-bottom: 100%" href="#">
+                                <a class="lazy" style="padding-bottom: 100%" href="{% url 'product.show' id=product.id %}">
                                     <img class="img-responsive"
                                          data-src="{{ product.photo_square.url }}"
                                          src="{{ product.photo_square.url }}">
@@ -66,7 +66,7 @@
                             <div class="caption">
                                 <div class="price price-product">{{ product.price | floatformat:2 }} сом</div>
                                 <div class="name">
-                                    <a href="#">{{ product.name }}</a>
+                                    <a href="{% url 'product.show' id=product.id %}">{{ product.name }}</a>
                                 </div>
                                 <div class="description">{{ product.shortDescription }}</div>
                                 <div class="name price">

@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-9 col-sm-offset-3">
+            <div class="{% if request.resolver_match.url_name != 'product.show' %}col-sm-9 col-sm-offset-3{% else %}col-sm-12{% endif %}">
                 <div id="search" class="search">
                     <input type="text" name="search" value="" placeholder="Поиск">
                     <button type="button" class="button-search"><span>Поиск</span></button>

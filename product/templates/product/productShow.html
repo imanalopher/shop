@@ -1,0 +1,156 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+
+    <!-- Start page content -->
+    <section id="page-content" class="page-wrapper">
+
+        <!-- Start single product detais area -->
+        <div class="tm-section single-product-details-area ptb-80 bg-white">
+            <div class="container">
+                <!-- Start single product details inner -->
+                <div class="single-pro-details-inner">
+                    <div class="row">
+                        <div class="col-md-5 col-lg-5 col-sm-6 col-xs-12">
+                            <div class="single-pro-best-view">
+                                <div class="single-pro-small-view">
+                                    <div class="tab-content sin-pro-small-image">
+
+                                    </div>
+                                </div>
+                                <div class="single-product-thumbs">
+                                    <ul id="tablist" class="single-pro-thumbs-list" role="tablist">
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-lg-7 col-sm-6 col-xs-12">
+                            <form action="#">
+                                <!-- Start single product description -->
+                                <div class="single-product-description">
+                                    <h3 class="tm-single-product-title">{{ product.name }}</h3>
+                                    <p class="product-details-paragraph">
+                                        {{ product.shortDescription }}
+                                    </p>
+                                    <div class="price-box">
+                                        <span class="price">{{ product.price }} сом</span>
+                                    </div>
+
+                                    <div class="tm-size-color-single">
+                                        <h4>Количество</h4>
+                                        <div class="cart-quantity" style="margin-left: 21px;">
+                                            <div class="cart-plus-minus">
+                                                <input id="qtybutton" class="cart-plus-minus-box" data-id="{{ product.id }}" type="text" name="qtybutton" value="1">
+                                                <div class="dec qtybutton" data-id="{{ product.id }}">-</div>
+                                                <div class="inc qtybutton" data-id="{{ product.id }}">+</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="product-action">
+                                        <a href="javascript:void(0);" class="pro-btn add-to-cart">Купить</a>
+                                    </div>
+
+                                    <div class="tm-single-product-categories">
+                                        <h4>Whatsapp номер магазина:</h4>
+                                        <div class="categories-tags" style="margin-left: 10px;">
+                                            <a href="tel:+996558150025">+996(558)15-00-25</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="tm-single-product-categories">
+                                        <h4>Код товара:</h4>
+                                        <div class="categories-tags" style="margin-left: 10px;">{{ product.code }}</div>
+                                    </div>
+                                    <div class="tm-single-product-share">
+                                        <h4>Поделиться</h4>
+                                        <ul class="social-list">
+                                            <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ app.request.uri }}" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                            <li><a href="whatsapp://send?text={{ app.request.uri }}"><i class="fa fa-whatsapp"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="tm-single-product-categories">
+                                        <h4>Категории</h4>
+                                        <div class="categories-tags">
+                                            {% for category in product.category.all %}
+                                                <a href="{% url 'getCategory' id=category.id %}">{{ category }}</a>
+                                                {% if not loop.last %}
+                                                    <span>,</span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End single product description -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- End single product details inner -->
+            </div>
+        </div>
+        <!-- End single product detais area -->
+
+        <div class="tm-section single-product-reviews pb-80 bg-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <ul id="tablist" class="tab-section-title" role="tablist">
+                                <li role="presentation" class="active">
+                                    <h2>
+                                        <a href="#product-description" role="tab" data-toggle="tab">Описание</a>
+                                    </h2>
+                                </li>
+                                <li role="presentation">
+                                    <h2>
+                                        <a href="#product-reviews" role="tab" data-toggle="tab">Комментарии</a>
+                                    </h2>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Start tab content        -->
+                        <div class="tab-content">
+                            <div role="tabpanel" id="product-description" class="tab-pane fade in active">
+                                <div class="sin-pro-description-inner">
+                                    {{ product.review }}
+                                </div>
+                            </div>
+                            <div role="tabpanel" id="product-reviews" class="tab-pane fade">
+                                <div class="single-pro-reviews-inner">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End tab content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- End page content -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super.super }}
+    <script>
+        $(document).ready(function () {
+            alert('asdfasdf');
+
+            $('.add-to-cart').on('click', function () {
+                var id = $('#qtybutton').data('id');
+                var count = $('#qtybutton').val();
+                addItem(id, '', count);
+            });
+        });
+        function addItem(id, name, amount) {
+            Basket.addProductToBasket(id, name, amount)
+        }
+    </script>
+{% endblock %}
